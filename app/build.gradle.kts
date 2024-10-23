@@ -2,6 +2,12 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+java{
+    toolchain{
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
 android {
     namespace = "com.example.diets"
     compileSdk = 34
@@ -28,13 +34,14 @@ android {
     }
     compileOptions {
         sourceCompatibility =
-            JavaVersion.VERSION_1_8
+            JavaVersion.VERSION_17
         targetCompatibility =
-            JavaVersion.VERSION_1_8
+            JavaVersion.VERSION_17
     }
 }
 
 dependencies {
+    implementation("com.squareup.okhttp3:okhttp:3.14.6")
     implementation("com.google.code.gson:gson:2.8.8")
     implementation(libs.appcompat)
     implementation(libs.material)
