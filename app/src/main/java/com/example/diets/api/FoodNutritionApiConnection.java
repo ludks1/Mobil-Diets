@@ -1,37 +1,66 @@
 package com.example.diets.api;
 
-import com.example.diets.record.FoodRecipes;
+import com.example.diets.record.RecipeByIngredientsResponse;
+import com.example.diets.record.RecipeResponse;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
 
 public class FoodNutritionApiConnection {
-    private final String apiKey = "ff17729e74f14a72b489a39749365886&";
+    private static final String apiKey =
+            "ff17729e74f14a72b489a39749365886&";
+    private static final String url =
+            "https://api.spoonacular.com/recipes/complexSearch?apiKey=";
 
-    public FoodRecipes getFoodRecipes(String foodName) {
-        String url = "https://api.spoonacular" +
-                ".com/recipes/complexSearch" +
-                "?apiKey=" + apiKey + "&query" +
-                "=" + foodName;
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-           if (!response.isSuccessful()){
-                throw new IOException("Unexpected code " + response);
-              }
-           return new Gson().fromJson(response.body().string(), FoodRecipes.class);
-        } catch (IOException e) {
-            throw new RuntimeException("Error " +
-                    "al tratar de buscar la " +
-                    "comida:", e);
+    public RecipeResponse getFoodRecipes(String foodName) throws IOException {
+        String requestUrl = String.format(url,
+                apiKey, foodName);
+
+        URL url = new URL(requestUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            response.append(line);
         }
+        reader.close();
+
+        Gson gson = new Gson();
+        RecipeResponse recipeResponse = gson.fromJson(response.toString(), RecipeResponse.class);
+
+        return recipeResponse;
+    }
+
+    public List<RecipeByIngredientsResponse> getRecipesByIngredients(String ingredients) throws IOException {
+        String requestUrl = String.format("https://api.spoonacular.com/recipes/findByIngredients?apiKey=%s&ingredients=%s", apiKey, ingredients);
+
+        URL url = new URL(requestUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            response.append(line);
+        }
+        reader.close();
+
+        Gson gson = new Gson();
+        List<RecipeByIngredientsResponse> recipes = gson.fromJson(
+                response.toString(),
+                new TypeToken<List<RecipeByIngredientsResponse>>(){}.getType()
+        );
+        return recipes;
     }
 }

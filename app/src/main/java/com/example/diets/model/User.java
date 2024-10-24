@@ -71,6 +71,7 @@ public class User {
         this.height = height;
     }
 
+    // methods
     public int massIndex(double weight, double height) {
         feetToMeters(height);
         return (int) (weight / (height * height));
