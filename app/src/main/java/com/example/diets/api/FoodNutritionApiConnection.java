@@ -44,7 +44,7 @@ public class FoodNutritionApiConnection {
     public List<RecipeByIngredientsResponse> getRecipesByIngredients(String ingredients) throws IOException {
         String requestUrl = String.format("https://api.spoonacular.com/recipes/findByIngredients?apiKey=%s&ingredients=%s", apiKey, ingredients);
 
-        URL url = new URL(requestUrl);
+        URL  url = new URL(requestUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
 
