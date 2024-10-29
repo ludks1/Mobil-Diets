@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "270055120914",
+    "project_id": "diets-e9f65",
+    "storage_bucket": "diets-e9f65.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270055120914:android:8faec00710b04b321878cb",
+        "android_client_info": {
+          "package_name": "com.example.diets"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDn9aTZDeWLx3-8pNG1QY8M9rvy1fOjNJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
