@@ -1,7 +1,5 @@
 package com.example.diets.model;
 
-import androidx.annotation.NonNull;
-
 public class User {
     // properties
     private String name;
@@ -11,6 +9,11 @@ public class User {
     private double weight;
     private double height;
     private final int type_of_user = 1; // 1 for user, 2 for admin
+    private boolean firstTime; // Nuevo campo para indicar si es la primera vez
+
+    // Constructor sin argumentos requerido por Firebase
+    public User() {
+    }
 
     // constructor
     public User(String name, String email, String password, int age, double weight, double height) {
@@ -20,6 +23,7 @@ public class User {
         this.age = age;
         this.weight = weight;
         this.height = height;
+        this.firstTime = true; // Por defecto, es la primera vez
     }
 
     // getters and setters
@@ -71,13 +75,21 @@ public class User {
         this.height = height;
     }
 
+    public boolean isFirstTime() {
+        return firstTime;
+    }
+
+    public void setFirstTime(boolean firstTime) {
+        this.firstTime = firstTime;
+    }
+
     // methods
     public int massIndex(double weight, double height) {
-        feetToMeters(height);
+        height = feetToMeters(height);
         return (int) (weight / (height * height));
     }
 
-    private int feetToMeters(double feet) {
-        return (int) (feet * 0.3048);
+    private double feetToMeters(double feet) {
+        return feet * 0.3048;
     }
 }
