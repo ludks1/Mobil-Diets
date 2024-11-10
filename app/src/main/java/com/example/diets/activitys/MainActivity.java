@@ -43,11 +43,17 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        // Verifica si el usuario ya está autenticado
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            checkFirstTimeLogin(currentUser.getUid());
+        }
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
+                String email = emailEditText.getText().toString().trim();
+                String password = passwordEditText.getText().toString().trim();
 
                 if (validateInputs(email, password)) {
                     loginUser(email, password);
@@ -84,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
                             checkFirstTimeLogin(user.getUid());
                         }
                     } else {
-                        Toast.makeText(MainActivity.this, "Error en el inicio de sesión", Toast.LENGTH_SHORT).show();
+                        String errorMessage = task.getException() != null ? task.getException().getMessage() : "Error en el inicio de sesión";
+                        Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
