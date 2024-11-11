@@ -2,12 +2,16 @@ package com.example.diets.model;
 
 public class User {
     // properties
-    private String name;
+    private String firstName;
+    private String lastName;
     private String email;
     private String password;
     private int age;
     private double weight;
     private double height;
+    private String gender;
+    private String activityLevel;
+    private String goal;
     private final int type_of_user = 1; // 1 for user, 2 for admin
     private boolean firstTime; // Nuevo campo para indicar si es la primera vez
 
@@ -16,23 +20,35 @@ public class User {
     }
 
     // constructor
-    public User(String name, String email, String password, int age, double weight, double height) {
-        this.name = name;
+    public User(String firstName, String lastName, String email, String password, int age, double weight, double height, String gender, String activityLevel, String goal) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.age = age;
         this.weight = weight;
         this.height = height;
+        this.gender = gender;
+        this.activityLevel = activityLevel;
+        this.goal = goal;
         this.firstTime = true; // Por defecto, es la primera vez
     }
 
     // getters and setters
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -73,6 +89,30 @@ public class User {
 
     public void setHeight(double height) {
         this.height = height;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getActivityLevel() {
+        return activityLevel;
+    }
+
+    public void setActivityLevel(String activityLevel) {
+        this.activityLevel = activityLevel;
+    }
+
+    public String getGoal() {
+        return goal;
+    }
+
+    public void setGoal(String goal) {
+        this.goal = goal;
     }
 
     public boolean isFirstTime() {

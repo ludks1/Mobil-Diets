@@ -8,4 +8,11 @@
         <item>Perder peso</item>
         <item>Mantenerse</item>
     </string-array>
+    <string-array name="activity_level_options">
+        <item>Sedentario</item>
+        <item>Ligera actividad</item>
+        <item>Actividad moderada</item>
+        <item>Alta actividad</item>
+        <item>Muy alta actividad</item>
+    </string-array>
 </resources>
