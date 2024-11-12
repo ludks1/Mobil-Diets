@@ -56,7 +56,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
-        navigationView.inflateHeaderView(R.layout.nav_header_main); // Asegúrate de inflar el header
+        navigationView.inflateHeaderView(R.layout.nav_header_main);
 
         caloriesTextView = findViewById(R.id.caloriesTextView);
         proteinTextView = findViewById(R.id.proteinTextView);
@@ -93,6 +93,10 @@ public class DashboardActivity extends AppCompatActivity {
                             Log.e("DashboardActivity", "navigationView is null");
                         }
 
+                        // Actualizar el saludo en el Dashboard
+                        TextView dashboardGreeting = findViewById(R.id.dashboardGreeting);
+                        dashboardGreeting.setText("Hola, " + user.getFirstName() + " " + user.getLastName() + ", este es el Dashboard");
+
                         // Calcular y mostrar las calorías necesarias
                         double calories = calculateCalories(user.getWeight(), user.getHeight(), user.getAge(), user.getGender(), user.getActivityLevel(), user.getGoal());
                         caloriesTextView.setText(String.format("Calorías necesarias: %.2f", calories));
@@ -117,6 +121,7 @@ public class DashboardActivity extends AppCompatActivity {
                 }
             });
         }
+
 
 
 

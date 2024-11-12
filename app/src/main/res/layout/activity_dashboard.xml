@@ -31,11 +31,13 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/dashboardGreeting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hola, este es el Dashboard"
                     android:textSize="24sp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/proteinTextView"
                     android:layout_width="wrap_content"
