@@ -9,6 +9,6 @@ public class DietsApp extends Application {
     public void onCreate() {
         super.onCreate();
         // Habilitar la persistencia de datos en Firebase Realtime Database
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(false);
     }
 }

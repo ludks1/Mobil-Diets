@@ -54,5 +54,8 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:21.1.0")
     implementation("com.google.firebase:firebase-database:20.1.0")
     implementation ("com.google.android.material:material:1.8.0")
+    implementation ("com.google.android.material:material:1.4.0")
+    implementation ("com.google.android.material:material:1.9.0")
+
 
 }
