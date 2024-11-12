@@ -23,11 +23,11 @@
         android:layout_marginBottom="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailEditText"
+            android:id="@+id/etNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Correo electrónico"
-            android:inputType="textEmailAddress"
+            android:hint="Nombre"
+            android:inputType="textPersonName"
             android:padding="16dp"
             android:background="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -38,7 +38,7 @@
         android:layout_marginBottom="32dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/passwordEditText"
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Contraseña"
@@ -48,7 +48,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Iniciar sesión"
@@ -58,10 +58,10 @@
         android:layout_marginBottom="16dp" />
 
     <Button
-        android:id="@+id/registerButton"
+        android:id="@+id/btnRecuperarPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrar"
+        android:text="Recuperar contraseña"
         android:textSize="18sp"
         android:padding="16dp"
         android:backgroundTint="#2196F3" />

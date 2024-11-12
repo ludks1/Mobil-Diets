@@ -1,0 +1,11 @@
+<resources>
+    <string-array name="gender_options">
+        <item>Masculino</item>
+        <item>Femenino</item>
+    </string-array>
+    <string-array name="goal_options">
+        <item>Ganar músculo</item>
+        <item>Perder peso</item>
+        <item>Mantenerse</item>
+    </string-array>
+</resources>

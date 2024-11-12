@@ -3,8 +3,10 @@ package com.example.diets.activitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,8 +23,8 @@ public class UserFormActivity extends AppCompatActivity {
 
     private EditText weightEditText;
     private EditText heightEditText;
-    private EditText genderEditText;
-    private EditText goalEditText;
+    private Spinner genderSpinner;
+    private Spinner goalSpinner;
     private Button submitButton;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -34,12 +36,24 @@ public class UserFormActivity extends AppCompatActivity {
 
         weightEditText = findViewById(R.id.weightEditText);
         heightEditText = findViewById(R.id.heightEditText);
-        genderEditText = findViewById(R.id.genderEditText);
-        goalEditText = findViewById(R.id.goalEditText);
+        genderSpinner = findViewById(R.id.genderSpinner);
+        goalSpinner = findViewById(R.id.goalSpinner);
         submitButton = findViewById(R.id.submitButton);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Configura el Spinner de género
+        ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(this,
+                R.array.gender_options, android.R.layout.simple_spinner_item);
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(genderAdapter);
+
+        // Configura el Spinner de meta
+        ArrayAdapter<CharSequence> goalAdapter = ArrayAdapter.createFromResource(this,
+                R.array.goal_options, android.R.layout.simple_spinner_item);
+        goalAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        goalSpinner.setAdapter(goalAdapter);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,8 +69,8 @@ public class UserFormActivity extends AppCompatActivity {
             String userId = currentUser.getUid();
             double weight = Double.parseDouble(weightEditText.getText().toString());
             double height = Double.parseDouble(heightEditText.getText().toString());
-            String gender = genderEditText.getText().toString();
-            String goal = goalEditText.getText().toString();
+            String gender = genderSpinner.getSelectedItem().toString();
+            String goal = goalSpinner.getSelectedItem().toString();
 
             mDatabase.child("users").child(userId).child("weight").setValue(weight);
             mDatabase.child("users").child(userId).child("height").setValue(height);
