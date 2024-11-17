@@ -69,14 +69,15 @@
                     android:layout_marginTop="16dp"/>
 
                 <!-- Contenedor para el desayuno -->
+
                 <EditText
                     android:id="@+id/foodTextField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="299dp"
+                    android:layout_height="57dp"
                     android:ems="10"
+                    android:hint="Ingresa un alimento"
                     android:inputType="text"
-                    android:text="Ingrese un alimento"
-                    android:textAlignment="viewStart" />
+                    android:textAlignment="center" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"

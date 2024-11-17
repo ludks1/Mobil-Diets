@@ -23,11 +23,9 @@ public class FoodService {
 
 
     public RecipeResponse getFoodRecipes(String foodName) throws IOException {
-        String requestUrl = String.format(url,
-                "query=",foodName,
-                "&apiKey=", apiKey);
-        // '&' importante para concatenar los
-        // parametros de la URL
+        String requestUrl = "https://api.spoonacular.com/recipes/complexSearch" +
+                "?query="+foodName+
+                "&apiKey="+apiKey;
 
         URL url = new URL(requestUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();

@@ -10,11 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.example.diets.R;
 import com.example.diets.api.FoodService;
 import com.example.diets.model.User;
@@ -30,8 +32,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.example.diets.R;
+import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -51,14 +56,18 @@ public class DashboardActivity extends AppCompatActivity {
     private Button addLunchButton;
     private Button addDinnerButton;
     private Button addSnacksButton;
-    private User user;
     private FoodService foodService;
     private EditText foodTextField;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        foodService = new FoodService();
+
+        foodTextField = findViewById(R.id.foodTextField);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -71,14 +80,18 @@ public class DashboardActivity extends AppCompatActivity {
         proteinTextView = findViewById(R.id.proteinTextView);
         fatTextView = findViewById(R.id.fatTextView);
         carbTextView = findViewById(R.id.carbTextView);
+
         breakfastDetails = findViewById(R.id.breakfastDetails);
         lunchDetails = findViewById(R.id.lunchDetails);
         dinnerDetails = findViewById(R.id.dinnerDetails);
         snacksDetails = findViewById(R.id.snacksDetails);
+
         addBreakfastButton = findViewById(R.id.addBreakfastButton);
         addLunchButton = findViewById(R.id.addLunchButton);
         addDinnerButton = findViewById(R.id.addDinnerButton);
         addSnacksButton = findViewById(R.id.addSnacksButton);
+
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -104,25 +117,14 @@ public class DashboardActivity extends AppCompatActivity {
 
                         // Actualizar el saludo en el Dashboard
                         TextView dashboardGreeting = findViewById(R.id.dashboardGreeting);
-                        dashboardGreeting.setText("Hola, " + user.getFirstName() + " " + user.getLastName() + ", este es el Dashboard");
-
-                        // Calcular y mostrar las calorías necesarias
-                        double calories =
-                                user.calculateCalories(user.getWeight(), user.getHeight(), user.getAge(), user.getGender(), user.getActivityLevel(), user.getGoal());
-                        caloriesTextView.setText(String.format("Calorías necesarias: %.2f", calories));
-
-                        // Calcular y mostrar los macronutrientes
-                        double[] macros =
-                                user.calculateMacros(user.getWeight(), user.getGoal(), calories);
-                        proteinTextView.setText(String.format("Proteínas: %.2f g", macros[0]));
-                        fatTextView.setText(String.format("Grasas: %.2f g", macros[1]));
-                        carbTextView.setText(String.format("Carbohidratos: %.2f g", macros[2]));
-
-                        // Mostrar detalles de las comidas (ejemplo)
-                        breakfastDetails.setText("Avena con frutas y nueces");
-                        lunchDetails.setText("Pollo a la plancha con ensalada");
-                        dinnerDetails.setText("Salmón al horno con vegetales");
-                        snacksDetails.setText("Yogur griego con miel y almendras");
+                        try {
+                            if (user.getFirstName() != null && user.getLastName() != null)
+                                dashboardGreeting.setText("Hola, " + user.getFirstName() + " " + user.getLastName() + ", este es el Dashboard");
+                            else
+                                dashboardGreeting.setText("Hola, este es el Dashboard, bienvenido");
+                        } catch (Exception e) {
+                            Log.e("DashboardActivity", "Error al obtener el nombre del usuario");
+                        }
                     }
                 }
 
@@ -133,53 +135,181 @@ public class DashboardActivity extends AppCompatActivity {
             });
         }
 
-    // Configurar los botones para mandar a una
+        // Configurar los botones para mandar a una
         // nueva pantalla para ver los alimentos
         addBreakfastButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    String food = foodTextField.getText().toString();
-                    foodService.getFoodRecipes(food);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            String food = foodTextField.getText().toString();
+                            // Llama al servicio en un hilo secundario
+                            RecipeResponse response = foodService.getFoodRecipes(food);
+
+                            if (response != null && response.results() != null) {
+                                // Solo obtenemos los títulos de las recetas
+                                List<String> titles = new ArrayList<>();
+                                for (RecipeResponse.Result recipe : response.results()) {
+                                    titles.add(recipe.title());
+                                }
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        StringBuilder titlesText = new StringBuilder();
+                                        for (String title : titles) {
+                                            titlesText.append(title).append("\n");
+                                        }
+                                        breakfastDetails.setText(titlesText.toString());
+                                    }
+                                });
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(DashboardActivity.this,
+                                            "Error al obtener las recetas.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                }).start();
             }
         });
 
         addLunchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    String food = foodTextField.getText().toString();
-                    foodService.getFoodRecipes(food);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            String food = foodTextField.getText().toString();
+                            // Llama al servicio en un hilo secundario
+                            RecipeResponse response = foodService.getFoodRecipes(food);
+
+                            if (response != null && response.results() != null) {
+                                // Solo obtenemos los títulos de las recetas
+                                List<String> titles = new ArrayList<>();
+                                for (RecipeResponse.Result recipe : response.results()) {
+                                    titles.add(recipe.title());
+                                }
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        StringBuilder titlesText = new StringBuilder();
+                                        for (String title : titles) {
+                                            titlesText.append(title).append("\n");
+                                        }
+                                        lunchDetails.setText(titlesText.toString());
+                                    }
+                                });
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(DashboardActivity.this,
+                                            "Error al obtener las recetas.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                }).start();
             }
         });
 
         addDinnerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    String food = foodTextField.getText().toString();
-                    foodService.getFoodRecipes(food);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            String food = foodTextField.getText().toString();
+                            // Llama al servicio en un hilo secundario
+                            RecipeResponse response = foodService.getFoodRecipes(food);
+
+                            if (response != null && response.results() != null) {
+                                // Solo obtenemos los títulos de las recetas
+                                List<String> titles = new ArrayList<>();
+                                for (RecipeResponse.Result recipe : response.results()) {
+                                    titles.add(recipe.title());
+                                }
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        StringBuilder titlesText = new StringBuilder();
+                                        for (String title : titles) {
+                                            titlesText.append(title).append("\n");
+                                        }
+                                        dinnerDetails.setText(titlesText.toString());
+                                    }
+                                });
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(DashboardActivity.this,
+                                            "Error al obtener las recetas.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                }).start();
             }
         });
 
         addSnacksButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    String food = foodTextField.getText().toString();
-                    foodService.getFoodRecipes(food);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            String food = foodTextField.getText().toString();
+                            // Llama al servicio en un hilo secundario
+                            RecipeResponse response = foodService.getFoodRecipes(food);
+
+                            if (response != null && response.results() != null) {
+                                // Solo obtenemos los títulos de las recetas
+                                List<String> titles = new ArrayList<>();
+                                for (RecipeResponse.Result recipe : response.results()) {
+                                    titles.add(recipe.title());
+                                }
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        StringBuilder titlesText = new StringBuilder();
+                                        for (String title : titles) {
+                                            titlesText.append(title).append("\n");
+                                        }
+                                        snacksDetails.setText(titlesText.toString());
+                                    }
+                                });
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(DashboardActivity.this,
+                                            "Error al obtener las recetas.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                }).start();
             }
         });
 
