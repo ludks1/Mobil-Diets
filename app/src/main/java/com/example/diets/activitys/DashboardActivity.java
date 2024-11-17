@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -52,6 +53,7 @@ public class DashboardActivity extends AppCompatActivity {
     private Button addSnacksButton;
     private User user;
     private FoodService foodService;
+    private EditText foodTextField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,16 +133,13 @@ public class DashboardActivity extends AppCompatActivity {
             });
         }
 
-    // Configurar los botones para añadir alimentos
+    // Configurar los botones para mandar a una
+        // nueva pantalla para ver los alimentos
         addBreakfastButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // se necesita implementar un
-                // textField para poder cambiar
-                // el string de food a buscar
-                // para que sea dinamico
                 try {
-                    String food = "apple";
+                    String food = foodTextField.getText().toString();
                     foodService.getFoodRecipes(food);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -151,13 +150,8 @@ public class DashboardActivity extends AppCompatActivity {
         addLunchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Lógica para añadir alimento al almuerzo
-                // se necesita implementar un
-                // textField para poder cambiar
-                // el string de food a buscar
-                // para que sea dinamico
                 try {
-                    String food = "apple";
+                    String food = foodTextField.getText().toString();
                     foodService.getFoodRecipes(food);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -168,13 +162,8 @@ public class DashboardActivity extends AppCompatActivity {
         addDinnerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Lógica para añadir alimento a la cena
-                // se necesita implementar un
-                // textField para poder cambiar
-                // el string de food a buscar
-                // para que sea dinamico
                 try {
-                    String food = "apple";
+                    String food = foodTextField.getText().toString();
                     foodService.getFoodRecipes(food);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -185,13 +174,8 @@ public class DashboardActivity extends AppCompatActivity {
         addSnacksButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Lógica para añadir alimento a los snacks
-                // se necesita implementar un
-                // textField para poder cambiar
-                // el string de food a buscar
-                // para que sea dinamico
                 try {
-                    String food = "apple";
+                    String food = foodTextField.getText().toString();
                     foodService.getFoodRecipes(food);
                 } catch (IOException e) {
                     throw new RuntimeException(e);

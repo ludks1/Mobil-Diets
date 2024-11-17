@@ -19,12 +19,15 @@ import java.util.List;
 public class FoodService {
     private static final String apiKey =
             "ff17729e74f14a72b489a39749365886&";
-    private static final String url =
-            "https://api.spoonacular.com/recipes/complexSearch?apiKey=";
+    private static final String url = "https://api.spoonacular.com/recipes/complexSearch?";
+
 
     public RecipeResponse getFoodRecipes(String foodName) throws IOException {
         String requestUrl = String.format(url,
-                apiKey, foodName);
+                "query=",foodName,
+                "&apiKey=", apiKey);
+        // '&' importante para concatenar los
+        // parametros de la URL
 
         URL url = new URL(requestUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -50,7 +53,12 @@ public class FoodService {
     }
 
     public List<RecipeByIngredientsResponse> getRecipesByIngredients(String ingredients) throws IOException {
-        String requestUrl = String.format("https://api.spoonacular.com/recipes/findByIngredients?apiKey=%s&ingredients=%s", apiKey, ingredients);
+        String requestUrl = String.format(
+                "https://api.spoonacular" +
+                        ".com/recipes" +
+                        "/findByIngredients" +
+                        "?ingredients=",
+                ingredients,"&apiKey=", apiKey);
 
         URL  url = new URL(requestUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
