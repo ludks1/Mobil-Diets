@@ -16,12 +16,16 @@ public class User {
     private String goal;
     private final int type_of_user = 1; // 1 for user, 2 for admin
     private boolean firstTime; // Nuevo campo para indicar si es la primera vez
+    private double caloriesToday; // Calorías de hoy
+    private double proteinToday; // Proteínas de hoy
+    private double fatToday; // Grasas de hoy
+    private double carbToday; // Carbohidratos de hoy
 
     // Constructor sin argumentos requerido por Firebase
     public User() {
     }
 
-    // constructor
+    // Constructor con argumentos
     public User(String firstName, String lastName, String email, String password, int age, double weight, double height, String gender, String activityLevel, String goal) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -34,9 +38,13 @@ public class User {
         this.activityLevel = activityLevel;
         this.goal = goal;
         this.firstTime = true; // Por defecto, es la primera vez
+        this.caloriesToday = 0.0; // Inicializamos las calorías de hoy en 0
+        this.proteinToday = 0.0; // Inicializamos las proteínas de hoy en 0
+        this.fatToday = 0.0; // Inicializamos las grasas de hoy en 0
+        this.carbToday = 0.0; // Inicializamos los carbohidratos de hoy en 0
     }
 
-    // getters and setters
+    // Getters y setters
     public String getFirstName() {
         return firstName;
     }
@@ -123,6 +131,51 @@ public class User {
 
     public void setFirstTime(boolean firstTime) {
         this.firstTime = firstTime;
+    }
+
+    public double getCaloriesToday() {
+        return caloriesToday;
+    }
+
+    public void setCaloriesToday(double caloriesToday) {
+        this.caloriesToday = caloriesToday;
+    }
+
+    public double getProteinToday() {
+        return proteinToday;
+    }
+
+    public double getFatToday() {
+        return fatToday;
+    }
+
+    public double getCarbToday() {
+        return carbToday;
+    }
+
+    // Métodos para agregar calorías y macronutrientes a los valores diarios
+    public void addCaloriesToday(double calories) {
+        this.caloriesToday += calories;
+    }
+
+    public void addProteinToday(double protein) {
+        this.proteinToday += protein;
+    }
+
+    public void addFatToday(double fat) {
+        this.fatToday += fat;
+    }
+
+    public void addCarbToday(double carb) {
+        this.carbToday += carb;
+    }
+
+    // Método para reiniciar los valores diarios cada 24 horas
+    public void resetDailyValues() {
+        this.caloriesToday = 0.0;
+        this.proteinToday = 0.0;
+        this.fatToday = 0.0;
+        this.carbToday = 0.0;
     }
 
     // methods
@@ -218,5 +271,4 @@ public class User {
 
         return new double[]{proteinGrams, fatGrams, carbGrams};
     }
-
 }

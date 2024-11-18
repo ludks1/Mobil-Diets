@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
@@ -10,6 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -17,6 +19,13 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <!-- RecyclerView para los alimentos (si es necesario) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/foodRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -30,6 +39,7 @@
                 android:orientation="vertical"
                 android:gravity="center">
 
+                <!-- Título del Dashboard -->
                 <TextView
                     android:id="@+id/dashboardGreeting"
                     android:layout_width="wrap_content"
@@ -38,38 +48,47 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
+                <!-- Información Nutricional -->
                 <TextView
                     android:id="@+id/proteinTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Proteínas: "
+                    android:text="Proteínas: 0g"
                     android:textSize="16sp" />
-
 
                 <TextView
                     android:id="@+id/fatTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Grasas: "
+                    android:text="Grasas: 0g"
                     android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/carbTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Carbohidratos: "
+                    android:text="Carbohidratos: 0g"
                     android:textSize="16sp" />
 
+                <!-- Calorías necesarias (según meta) -->
                 <TextView
-                    android:id="@+id/caloriesTextView"
+                    android:id="@+id/caloriesNeededTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Calorías necesarias: "
+                    android:text="Calorías necesarias: 0 kcal"
                     android:textSize="18sp"
-                    android:layout_marginTop="16dp"/>
+                    android:layout_marginTop="16dp" />
 
-                <!-- Contenedor para el desayuno -->
+                <!-- Calorías de hoy (consumidas hoy) -->
+                <TextView
+                    android:id="@+id/caloriesTodayTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Calorías de hoy: 0 kcal"
+                    android:textSize="18sp"
+                    android:layout_marginTop="8dp" />
 
+                <!-- Campo para añadir alimentos -->
                 <EditText
                     android:id="@+id/foodTextField"
                     android:layout_width="299dp"
@@ -77,8 +96,10 @@
                     android:ems="10"
                     android:hint="Ingresa un alimento"
                     android:inputType="text"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:layout_marginTop="16dp" />
 
+                <!-- Contenedor para el desayuno -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -247,6 +268,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:menu="@menu/bottom_navigation_menu" />
+
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -255,6 +277,5 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/activity_main_drawer" />
-
 
 </androidx.drawerlayout.widget.DrawerLayout>
