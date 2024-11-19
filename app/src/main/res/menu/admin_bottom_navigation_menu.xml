@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Título del menú -->
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_admin_user_list"
+            android:icon="@drawable/ic_admin_user_list"
+            android:title="Lista de Usuarios" />
+        <item
+            android:id="@+id/nav_admin_profile"
+            android:icon="@drawable/ic_admin_profile"
+            android:title="Registrar usuario" />
+    </group>
+
+</menu>

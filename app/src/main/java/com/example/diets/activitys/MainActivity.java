@@ -115,12 +115,20 @@ public class MainActivity extends AppCompatActivity {
                     User user = snapshot.getValue(User.class);
                     if (user != null) {
                         Log.d(TAG, "Datos del usuario obtenidos: " + user.toString());
-                        if (user.isFirstTime()) {
-                            Log.d(TAG, "Redirigiendo al formulario");
-                            startActivity(new Intent(MainActivity.this, UserFormActivity.class));
+
+                        // Verificar si es administrador
+                        if (user.isAdmin()) {
+                            Log.d(TAG, "Usuario es administrador, redirigiendo al AdminActivity");
+                            startActivity(new Intent(MainActivity.this, AdminActivity.class));
                         } else {
-                            Log.d(TAG, "Redirigiendo al dashboard");
-                            startActivity(new Intent(MainActivity.this, DashboardActivity.class));
+                            // Verificar si es el primer inicio de sesión
+                            if (user.isFirstTime()) {
+                                Log.d(TAG, "Redirigiendo al formulario");
+                                startActivity(new Intent(MainActivity.this, UserFormActivity.class));
+                            } else {
+                                Log.d(TAG, "Redirigiendo al dashboard");
+                                startActivity(new Intent(MainActivity.this, DashboardActivity.class));
+                            }
                         }
                         finish();
                     } else {
@@ -140,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
 }

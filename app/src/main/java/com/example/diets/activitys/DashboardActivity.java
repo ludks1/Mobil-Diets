@@ -1,17 +1,22 @@
 package com.example.diets.activitys;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import com.example.diets.R;
 import com.example.diets.api.FoodService;
 import com.example.diets.model.User;
 import com.example.diets.record.RecipeResponse;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,17 +24,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.JsonObject;
+
 import java.io.IOException;
 import java.util.List;
-import com.google.gson.JsonObject;
 
 public class DashboardActivity extends AppCompatActivity {
 
     private static final String TAG = "DashboardActivity";
 
+    // UI elements
     private TextView caloriesNeededTextView, caloriesTodayTextView, proteinTextView, fatTextView, carbTextView;
     private Button addBreakfastButton, addLunchButton, addDinnerButton, addSnacksButton;
     private EditText foodTextField;
+    private NavigationView navigationView;
+
+    // Firebase and services
     private FoodService foodService;
     private User user;
     private FirebaseAuth mAuth;
@@ -40,11 +50,24 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        // Initialize Firebase and service
         foodService = new FoodService();
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        // Obtener el usuario actual de Firebase
+        // Initialize UI
+        navigationView = findViewById(R.id.navigation_view);
+        initializeUI();
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.nav_logout) { // Asegúrate de que el ID coincide con el del archivo XML del menú
+                logout();
+                return true;
+            }
+            return false;
+        });
+
+        // Fetch current Firebase user
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -54,7 +77,8 @@ public class DashboardActivity extends AppCompatActivity {
                     user = snapshot.getValue(User.class);
                     if (user != null) {
                         Log.d(TAG, "Datos del usuario cargados: " + user);
-                        initializeUI();
+                        TextView dashboardGreeting = findViewById(R.id.dashboardGreeting);
+                        dashboardGreeting.setText("Hola, " + user.getFirstName() + " " + user.getLastName());
                         updateNutritionalValues(user.getCaloriesToday(), user.getProteinToday(), user.getFatToday(), user.getCarbToday(), user.calculateCalories(user.getWeight(), user.getHeight(), user.getAge(), user.getGender(), user.getActivityLevel(), user.getGoal()));
                     } else {
                         Log.e(TAG, "El usuario es nulo.");
@@ -65,12 +89,12 @@ public class DashboardActivity extends AppCompatActivity {
                 public void onCancelled(@NonNull DatabaseError error) {
                     Log.e(TAG, "Error al obtener los datos del usuario", error.toException());
                 }
+
             });
         }
     }
 
     private void initializeUI() {
-        // Inicialización de vistas
         foodTextField = findViewById(R.id.foodTextField);
         caloriesNeededTextView = findViewById(R.id.caloriesNeededTextView);
         caloriesTodayTextView = findViewById(R.id.caloriesTodayTextView);
@@ -121,19 +145,14 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void showRecipeSelectionDialog(List<RecipeResponse.Result> recipes, String mealType) {
+        // Placeholder dialog for selecting a recipe
         RecipeSelectionDialog dialog = new RecipeSelectionDialog(recipes, selectedRecipe -> {
             new Thread(() -> {
                 try {
-                    // Obtener información nutricional de la receta seleccionada
                     JsonObject nutrition = foodService.getRecipeNutrition(selectedRecipe.id());
-
                     if (nutrition != null) {
-                        double calories = 0.0;
-                        double protein = 0.0;
-                        double fat = 0.0;
-                        double carbohydrates = 0.0;
+                        double calories = 0.0, protein = 0.0, fat = 0.0, carbohydrates = 0.0;
 
-                        // Extraer los datos nutricionales de la respuesta JSON
                         for (var nutrient : nutrition.getAsJsonArray("nutrients")) {
                             String name = nutrient.getAsJsonObject().get("name").getAsString();
                             double amount = nutrient.getAsJsonObject().get("amount").getAsDouble();
@@ -160,47 +179,39 @@ public class DashboardActivity extends AppCompatActivity {
                         double finalCarbohydrates = carbohydrates;
 
                         runOnUiThread(() -> {
-                            // Actualizar detalles del desayuno, almuerzo, cena, etc.
                             updateMealDetails(mealType, selectedRecipe.title());
-
-                            // Mensaje Toast para mostrar la receta agregada
                             Toast.makeText(this, "Receta agregada a " + mealType + ": " + selectedRecipe.title(), Toast.LENGTH_SHORT).show();
 
-                            // Registrar información nutricional en el Logcat
-                            Log.d(TAG, "Receta seleccionada: " + selectedRecipe.getRecipeInfo());
-
-                            // Sumar los valores al usuario
                             user.addCaloriesToday(finalCalories);
                             user.addProteinToday(finalProtein);
                             user.addFatToday(finalFat);
                             user.addCarbToday(finalCarbohydrates);
 
-                            // Registrar la nueva información del usuario en el Logcat
-                            Log.d(TAG, "Valores nutricionales después de agregar el alimento: " +
-                                    "Calorías hoy: " + user.getCaloriesToday() +
-                                    ", Proteínas hoy: " + user.getProteinToday() +
-                                    ", Grasas hoy: " + user.getFatToday() +
-                                    ", Carbohidratos hoy: " + user.getCarbToday());
-
-                            // Actualizar la vista con los nuevos valores nutricionales
-                            updateNutritionalValues(user.getCaloriesToday(), user.getProteinToday(), user.getFatToday(), user.getCarbToday(), user.calculateCalories(user.getWeight(), user.getHeight(), user.getAge(), user.getGender(), user.getActivityLevel(), user.getGoal()));
+                            updateNutritionalValues(
+                                    user.getCaloriesToday(),
+                                    user.getProteinToday(),
+                                    user.getFatToday(),
+                                    user.getCarbToday(),
+                                    user.calculateCalories(user.getWeight(), user.getHeight(), user.getAge(), user.getGender(), user.getActivityLevel(), user.getGoal())
+                            );
                         });
-                    } else {
-                        runOnUiThread(() -> Toast.makeText(this, "Error al obtener la información nutricional.", Toast.LENGTH_SHORT).show());
                     }
                 } catch (IOException e) {
                     Log.e(TAG, "Error al obtener la información nutricional.", e);
-                    runOnUiThread(() -> Toast.makeText(this, "Error al obtener la información nutricional.", Toast.LENGTH_SHORT).show());
                 }
             }).start();
         });
         dialog.show(getSupportFragmentManager(), "RecipeSelectionDialog");
     }
-
+    private void logout() {
+        FirebaseAuth.getInstance().signOut(); // Cierra la sesión del usuario actual
+        Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
+        finish(); // Finaliza la actividad actual
+        startActivity(new Intent(DashboardActivity.this, MainActivity.class)); // Redirige al login
+    }
 
     private void updateNutritionalValues(double caloriesToday, double protein, double fat, double carbs, double caloriesNeeded) {
-        Log.d(TAG, "Actualizando valores nutricionales en la UI. Calorías hoy: " + caloriesToday +
-                ", Proteínas: " + protein + ", Grasas: " + fat + ", Carbohidratos: " + carbs);
+        Log.d(TAG, "Actualizando valores nutricionales: " + caloriesToday);
         caloriesTodayTextView.setText("Calorías de hoy: " + String.format("%.2f", caloriesToday) + " kcal");
         caloriesNeededTextView.setText("Calorías necesarias: " + String.format("%.2f", caloriesNeeded) + " kcal");
         proteinTextView.setText("Proteínas: " + String.format("%.2f", protein) + "g");
@@ -211,20 +222,16 @@ public class DashboardActivity extends AppCompatActivity {
     private void updateMealDetails(String mealType, String recipeTitle) {
         switch (mealType) {
             case "Desayuno":
-                TextView breakfastDetails = findViewById(R.id.breakfastDetails);
-                breakfastDetails.setText(recipeTitle);
+                ((TextView) findViewById(R.id.breakfastDetails)).setText(recipeTitle);
                 break;
             case "Almuerzo":
-                TextView lunchDetails = findViewById(R.id.lunchDetails);
-                lunchDetails.setText(recipeTitle);
+                ((TextView) findViewById(R.id.lunchDetails)).setText(recipeTitle);
                 break;
             case "Cena":
-                TextView dinnerDetails = findViewById(R.id.dinnerDetails);
-                dinnerDetails.setText(recipeTitle);
+                ((TextView) findViewById(R.id.dinnerDetails)).setText(recipeTitle);
                 break;
             case "Snacks":
-                TextView snacksDetails = findViewById(R.id.snacksDetails);
-                snacksDetails.setText(recipeTitle);
+                ((TextView) findViewById(R.id.snacksDetails)).setText(recipeTitle);
                 break;
         }
     }

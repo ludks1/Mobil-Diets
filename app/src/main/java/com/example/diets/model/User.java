@@ -1,9 +1,8 @@
 package com.example.diets.model;
 
-import android.widget.Toast;
-
 public class User {
-    // properties
+    // Properties
+    private String id;
     private String firstName;
     private String lastName;
     private String email;
@@ -20,9 +19,15 @@ public class User {
     private double proteinToday; // Proteínas de hoy
     private double fatToday; // Grasas de hoy
     private double carbToday; // Carbohidratos de hoy
+    private boolean isAdmin;
 
     // Constructor sin argumentos requerido por Firebase
     public User() {
+        this.firstTime = true;
+        this.caloriesToday = 0.0;
+        this.proteinToday = 0.0;
+        this.fatToday = 0.0;
+        this.carbToday = 0.0;
     }
 
     // Constructor con argumentos
@@ -38,15 +43,27 @@ public class User {
         this.activityLevel = activityLevel;
         this.goal = goal;
         this.firstTime = true; // Por defecto, es la primera vez
-        this.caloriesToday = 0.0; // Inicializamos las calorías de hoy en 0
-        this.proteinToday = 0.0; // Inicializamos las proteínas de hoy en 0
-        this.fatToday = 0.0; // Inicializamos las grasas de hoy en 0
-        this.carbToday = 0.0; // Inicializamos los carbohidratos de hoy en 0
+        this.caloriesToday = 0.0;
+        this.proteinToday = 0.0;
+        this.fatToday = 0.0;
+        this.carbToday = 0.0;
     }
 
-    // Getters y setters
+    public String getId() {
+        // Si el ID es nulo o vacío, devuelve una cadena predeterminada para evitar errores.
+        return id != null && !id.isEmpty() ? id : "Sin ID";
+    }
+
+
+    public void setId(String id) {
+        if (id == null || id.isEmpty()) {
+            throw new IllegalArgumentException("El ID del usuario no puede ser nulo o vacío");
+        }
+        this.id = id;
+    }
+
     public String getFirstName() {
-        return firstName;
+        return firstName != null ? firstName : "Sin nombre";
     }
 
     public void setFirstName(String firstName) {
@@ -54,7 +71,7 @@ public class User {
     }
 
     public String getLastName() {
-        return lastName;
+        return lastName != null ? lastName : "Sin apellido";
     }
 
     public void setLastName(String lastName) {
@@ -62,7 +79,7 @@ public class User {
     }
 
     public String getEmail() {
-        return email;
+        return email != null ? email : "Sin correo";
     }
 
     public void setEmail(String email) {
@@ -102,7 +119,7 @@ public class User {
     }
 
     public String getGender() {
-        return gender;
+        return gender != null ? gender : "Sin género";
     }
 
     public void setGender(String gender) {
@@ -110,7 +127,7 @@ public class User {
     }
 
     public String getActivityLevel() {
-        return activityLevel;
+        return activityLevel != null ? activityLevel : "Sin actividad";
     }
 
     public void setActivityLevel(String activityLevel) {
@@ -118,11 +135,19 @@ public class User {
     }
 
     public String getGoal() {
-        return goal;
+        return goal != null ? goal : "Sin meta";
     }
 
     public void setGoal(String goal) {
         this.goal = goal;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     public boolean isFirstTime() {
@@ -145,32 +170,32 @@ public class User {
         return proteinToday;
     }
 
-    public double getFatToday() {
-        return fatToday;
-    }
-
-    public double getCarbToday() {
-        return carbToday;
-    }
-
-    // Métodos para agregar calorías y macronutrientes a los valores diarios
-    public void addCaloriesToday(double calories) {
-        this.caloriesToday += calories;
-    }
-
     public void addProteinToday(double protein) {
         this.proteinToday += protein;
+    }
+
+    public double getFatToday() {
+        return fatToday;
     }
 
     public void addFatToday(double fat) {
         this.fatToday += fat;
     }
 
+    public double getCarbToday() {
+        return carbToday;
+    }
+
     public void addCarbToday(double carb) {
         this.carbToday += carb;
     }
 
-    // Método para reiniciar los valores diarios cada 24 horas
+    // Nuevo método restaurado: Añadir calorías
+    public void addCaloriesToday(double calories) {
+        this.caloriesToday += calories;
+    }
+
+    // Método para reiniciar valores diarios
     public void resetDailyValues() {
         this.caloriesToday = 0.0;
         this.proteinToday = 0.0;
@@ -178,7 +203,7 @@ public class User {
         this.carbToday = 0.0;
     }
 
-    // methods
+    // Métodos de cálculo
     public int massIndex(double weight, double height) {
         height = feetToMeters(height);
         return (int) (weight / (height * height));
@@ -189,86 +214,33 @@ public class User {
     }
 
     public double calculateCalories(double weight, double height, int age, String gender, String activityLevel, String goal) {
-        // Calcular TMB usando la fórmula de Mifflin-St Jeor
         double bmr;
-        if (gender != null && gender.equalsIgnoreCase("male")) {
+        if ("male".equalsIgnoreCase(gender)) {
             bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
         } else {
             bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
         }
 
-        // Ajustar TMB según el nivel de actividad
-        double activityFactor;
-        if (activityLevel != null) {
-            switch (activityLevel.toLowerCase()) {
-                case "sedentary":
-                    activityFactor = 1.2;
-                    break;
-                case "light":
-                    activityFactor = 1.375;
-                    break;
-                case "moderate":
-                    activityFactor = 1.55;
-                    break;
-                case "high":
-                    activityFactor = 1.725;
-                    break;
-                case "very high":
-                    activityFactor = 1.9;
-                    break;
-                default:
-                    activityFactor = 1.2;
-                    break;
-            }
-        } else {
-            activityFactor = 1.2; // Valor por defecto
-        }
+        double activityFactor = switch (activityLevel != null ? activityLevel.toLowerCase() : "sedentary") {
+            case "light" -> 1.375;
+            case "moderate" -> 1.55;
+            case "high" -> 1.725;
+            case "very high" -> 1.9;
+            default -> 1.2;
+        };
+
         double get = bmr * activityFactor;
-
-        // Ajustar GET según el objetivo
-        double calories;
-        if (goal != null) {
-            switch (goal.toLowerCase()) {
-                case "lose weight":
-                    calories = get * 0.75; // 25% déficit
-                    break;
-                case "gain muscle":
-                    calories = get * 1.15; // 15% superávit
-                    break;
-                default:
-                    calories = get; // mantener peso
-                    break;
-            }
-        } else {
-            calories = get; // Valor por defecto
-        }
-
-        return calories;
+        return switch (goal != null ? goal.toLowerCase() : "maintain weight") {
+            case "lose weight" -> get * 0.75;
+            case "gain muscle" -> get * 1.15;
+            default -> get;
+        };
     }
 
     public double[] calculateMacros(double weight, String goal, double calories) {
-        double proteinGrams, fatGrams, carbGrams;
-        if (goal != null) {
-            switch (goal.toLowerCase()) {
-                case "lose weight":
-                    proteinGrams = 2.3 * weight; // Usando el extremo inferior del rango
-                    fatGrams = calories * 0.25 / 9; // 25% de las calorías totales
-                    break;
-                case "gain muscle":
-                    proteinGrams = 1.8 * weight; // Usando el extremo inferior del rango
-                    fatGrams = calories * 0.25 / 9; // 25% de las calorías totales
-                    break;
-                default:
-                    proteinGrams = 1.8 * weight; // Usando el extremo inferior del rango
-                    fatGrams = calories * 0.25 / 9; // 25% de las calorías totales
-                    break;
-            }
-        } else {
-            proteinGrams = 1.8 * weight; // Valor por defecto
-            fatGrams = calories * 0.25 / 9; // 25% de las calorías totales
-        }
-        carbGrams = (calories - (proteinGrams * 4) - (fatGrams * 9)) / 4;
-
+        double proteinGrams = 1.8 * weight;
+        double fatGrams = calories * 0.25 / 9;
+        double carbGrams = (calories - (proteinGrams * 4) - (fatGrams * 9)) / 4;
         return new double[]{proteinGrams, fatGrams, carbGrams};
     }
 }

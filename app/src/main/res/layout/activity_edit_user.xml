@@ -1,0 +1,161 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Nombre -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/editUserFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre"
+            android:inputType="textPersonName" />
+
+        <!-- Apellido -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apellido"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editUserLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Apellido"
+            android:inputType="textPersonName" />
+
+        <!-- Correo Electrónico -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Correo Electrónico"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editUserEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Correo electrónico"
+            android:inputType="textEmailAddress" />
+
+        <!-- Edad -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edad"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editUserAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Edad"
+            android:inputType="number" />
+
+        <!-- Peso -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Peso (kg)"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editUserWeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Peso (kg)"
+            android:inputType="numberDecimal" />
+
+        <!-- Altura -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Altura (cm)"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editUserHeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Altura (cm)"
+            android:inputType="numberDecimal" />
+
+        <!-- Género -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Género"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp" />
+
+        <Spinner
+            android:id="@+id/editUserGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Nivel de Actividad -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nivel de Actividad"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp" />
+
+        <Spinner
+            android:id="@+id/editUserActivityLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Meta -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Meta"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp" />
+
+        <Spinner
+            android:id="@+id/editUserGoal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Botón para guardar cambios -->
+        <Button
+            android:id="@+id/saveUserButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar Cambios"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="?attr/colorPrimary"
+            android:textColor="@android:color/white" />
+
+
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,82 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/registerFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/registerLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Apellido"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/registerEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Correo electrónico"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/registerPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Contraseña"
+            android:inputType="textPassword" />
+
+        <Spinner
+            android:id="@+id/registerGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Género" />
+
+        <Spinner
+            android:id="@+id/registerAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Edad" />
+
+        <Spinner
+            android:id="@+id/registerHeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Altura (cm)" />
+
+        <Spinner
+            android:id="@+id/registerActivityLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nivel de actividad" />
+
+        <Spinner
+            android:id="@+id/registerGoal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Meta" />
+
+        <CheckBox
+            android:id="@+id/registerIsAdminCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Es administrador?" />
+
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrar" />
+    </LinearLayout>
+</ScrollView>
