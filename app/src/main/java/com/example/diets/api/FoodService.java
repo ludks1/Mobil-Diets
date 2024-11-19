@@ -1,7 +1,12 @@
 package com.example.diets.api;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
+
 import com.example.diets.record.RecipeResponse;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;
@@ -70,5 +75,71 @@ public class FoodService {
             e.printStackTrace();
             return null;
         }
+    }
+    public JsonObject getFoodNutrition(String foodName) throws IOException {
+        // Llama al método fetchNutritionData desde la misma instancia
+        JsonObject nutritionData = fetchNutritionData(foodName);
+        if (nutritionData != null && nutritionData.has("nutrients")) {
+            return nutritionData;
+        } else {
+            Log.e("FoodService", "No se encontraron datos para el alimento: " + foodName);
+            return null;
+        }
+    }
+
+    private JsonObject fetchNutritionData(String foodName) throws IOException {
+        // Aquí va tu lógica para hacer la solicitud HTTP o llamada a la API
+        JsonObject fakeNutritionData = new JsonObject();
+        // Ejemplo de datos ficticios para simular la respuesta de la API
+        fakeNutritionData.addProperty("name", foodName);
+        JsonArray nutrients = new JsonArray();
+
+        JsonObject calories = new JsonObject();
+        calories.addProperty("name", "Calories");
+        calories.addProperty("amount", 250.0);
+        nutrients.add(calories);
+
+        JsonObject protein = new JsonObject();
+        protein.addProperty("name", "Protein");
+        protein.addProperty("amount", 20.0);
+        nutrients.add(protein);
+
+        fakeNutritionData.add("nutrients", nutrients);
+
+        return fakeNutritionData; // Reemplaza esto con los datos reales de tu API.
+    }
+    // Placeholder para simular la búsqueda de información nutricional
+    private JsonObject getRecipeNutritionByName(String foodName) throws IOException {
+        JsonObject nutritionData = new JsonObject();
+
+        // Simulación de datos obtenidos de una API
+        switch (foodName.toLowerCase()) {
+            case "manzana":
+                nutritionData.addProperty("Calories", 52);
+                nutritionData.addProperty("Protein", 0.3);
+                nutritionData.addProperty("Fat", 0.2);
+                nutritionData.addProperty("Carbohydrates", 14);
+                break;
+            case "pollo":
+                nutritionData.addProperty("Calories", 239);
+                nutritionData.addProperty("Protein", 27);
+                nutritionData.addProperty("Fat", 14);
+                nutritionData.addProperty("Carbohydrates", 0);
+                break;
+            case "arroz":
+                nutritionData.addProperty("Calories", 130);
+                nutritionData.addProperty("Protein", 2.4);
+                nutritionData.addProperty("Fat", 0.3);
+                nutritionData.addProperty("Carbohydrates", 28);
+                break;
+            default:
+                nutritionData.addProperty("Calories", 0);
+                nutritionData.addProperty("Protein", 0);
+                nutritionData.addProperty("Fat", 0);
+                nutritionData.addProperty("Carbohydrates", 0);
+                break;
+        }
+
+        return nutritionData;
     }
 }

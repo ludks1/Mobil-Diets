@@ -4,7 +4,11 @@
     package="com.example.diets">
 
     <!-- Permisos necesarios -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:name=".activitys.DietsApp"
@@ -54,6 +58,9 @@
             android:name=".activitys.EditUserActivity"
             android:exported="true"
             android:label="Editar Usuario" />
+        <activity android:name=".activitys.WeightActivity" />
+        <activity android:name=".activitys.VideoActivity" />
+
     </application>
 
 </manifest>

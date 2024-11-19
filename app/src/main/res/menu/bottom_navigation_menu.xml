@@ -8,5 +8,8 @@
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/ic_dashboard"
         android:title="Peso" />
-
+    <item
+        android:id="@+id/navigation_video"
+        android:icon="@drawable/ic_video"
+        android:title="Video" />
 </menu>

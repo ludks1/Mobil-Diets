@@ -1,5 +1,9 @@
 package com.example.diets.model;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
+
 public class User {
     // Properties
     private String id;
@@ -20,6 +24,9 @@ public class User {
     private double fatToday; // Grasas de hoy
     private double carbToday; // Carbohidratos de hoy
     private boolean isAdmin;
+    private double latitude; // Coordenada de latitud
+    private double longitude; // Coordenada de longitud
+    private String profilePhotoUrl; // URL de la foto de perfil
 
     // Constructor sin argumentos requerido por Firebase
     public User() {
@@ -28,6 +35,9 @@ public class User {
         this.proteinToday = 0.0;
         this.fatToday = 0.0;
         this.carbToday = 0.0;
+        this.latitude = 0.0; // Inicialización predeterminada
+        this.longitude = 0.0; // Inicialización predeterminada
+        this.profilePhotoUrl = "default"; // Inicialización predeterminada
     }
 
     // Constructor con argumentos
@@ -47,13 +57,14 @@ public class User {
         this.proteinToday = 0.0;
         this.fatToday = 0.0;
         this.carbToday = 0.0;
+        this.latitude = 0.0; // Inicialización predeterminada
+        this.longitude = 0.0; // Inicialización predeterminada
+        this.profilePhotoUrl = "default"; // Inicialización predeterminada
     }
 
     public String getId() {
-        // Si el ID es nulo o vacío, devuelve una cadena predeterminada para evitar errores.
         return id != null && !id.isEmpty() ? id : "Sin ID";
     }
-
 
     public void setId(String id) {
         if (id == null || id.isEmpty()) {
@@ -170,29 +181,77 @@ public class User {
         return proteinToday;
     }
 
-    public void addProteinToday(double protein) {
-        this.proteinToday += protein;
-    }
-
     public double getFatToday() {
         return fatToday;
-    }
-
-    public void addFatToday(double fat) {
-        this.fatToday += fat;
     }
 
     public double getCarbToday() {
         return carbToday;
     }
 
-    public void addCarbToday(double carb) {
-        this.carbToday += carb;
-    }
-
-    // Nuevo método restaurado: Añadir calorías
     public void addCaloriesToday(double calories) {
         this.caloriesToday += calories;
+        Log.d(TAG, "Calories updated: " + this.caloriesToday);
+        if (this.caloriesToday < 0) this.caloriesToday = 0; // Evita valores negativos
+    }
+
+    public void addProteinToday(double protein) {
+        this.proteinToday += protein;
+        Log.d(TAG, "Protein updated: " + this.proteinToday);
+        if (this.proteinToday < 0) this.proteinToday = 0;
+    }
+
+    public void addFatToday(double fat) {
+        this.fatToday += fat;
+        Log.d(TAG, "Fat updated: " + this.fatToday);
+        if (this.fatToday < 0) this.fatToday = 0; // Evitar valores negativos
+    }
+
+    public void addCarbToday(double carbs) {
+        this.carbToday += carbs;
+        Log.d(TAG, "Carbs updated: " + this.carbToday);
+        if (this.carbToday < 0) this.carbToday = 0; // Evitar valores negativos
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getProfilePhotoUrl() {
+        return profilePhotoUrl != null ? profilePhotoUrl : "default";
+    }
+
+    public void setProfilePhotoUrl(String profilePhotoUrl) {
+        this.profilePhotoUrl = profilePhotoUrl;
+    }
+
+    // Métodos para restar valores
+    public void subtractCaloriesToday(double calories) {
+        this.caloriesToday = Math.max(0, this.caloriesToday - calories);
+    }
+
+    public void subtractProteinToday(double protein) {
+        this.proteinToday = Math.max(0, this.proteinToday - protein);
+    }
+
+    public void subtractFatToday(double fat) {
+        this.fatToday = Math.max(0, this.fatToday - fat);
+    }
+
+    public void subtractCarbToday(double carbs) {
+        this.carbToday = Math.max(0, this.carbToday - carbs);
     }
 
     // Método para reiniciar valores diarios

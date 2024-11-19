@@ -54,5 +54,10 @@ public record RecipeResponse(int offset,
             return String.format("Receta: %s\nCalorías: %.2f kcal\nProteínas: %.2f g\nGrasas: %.2f g\nCarbohidratos: %.2f g",
                     title, calories, protein, fat, carbohydrates);
         }
+        public Result {
+            // Establecer valores predeterminados si están ausentes
+            fat = fat == 0 ? 0.0 : fat;
+            carbohydrates = carbohydrates == 0 ? 0.0 : carbohydrates;
+        }
     }
 }

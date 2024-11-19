@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">NutriTrack</string>
+    <string name="prompt_gender">Seleccione el género</string>
+    <string name="prompt_age">Seleccione la edad</string>
+    <string name="prompt_height">Seleccione la altura (cm)</string>
+    <string name="prompt_activity_level">Seleccione el nivel de actividad</string>
+    <string name="prompt_goal">Seleccione la meta</string>
 </resources>

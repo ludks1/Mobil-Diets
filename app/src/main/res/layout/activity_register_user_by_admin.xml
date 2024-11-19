@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Campo de texto para el nombre -->
         <EditText
             android:id="@+id/registerFirstName"
             android:layout_width="match_parent"
@@ -16,6 +17,7 @@
             android:hint="Nombre"
             android:inputType="text" />
 
+        <!-- Campo de texto para el apellido -->
         <EditText
             android:id="@+id/registerLastName"
             android:layout_width="match_parent"
@@ -23,6 +25,7 @@
             android:hint="Apellido"
             android:inputType="text" />
 
+        <!-- Campo de texto para el correo electrónico -->
         <EditText
             android:id="@+id/registerEmail"
             android:layout_width="match_parent"
@@ -30,6 +33,7 @@
             android:hint="Correo electrónico"
             android:inputType="textEmailAddress" />
 
+        <!-- Campo de texto para la contraseña -->
         <EditText
             android:id="@+id/registerPassword"
             android:layout_width="match_parent"
@@ -37,46 +41,73 @@
             android:hint="Contraseña"
             android:inputType="textPassword" />
 
+        <!-- Spinner para género -->
         <Spinner
             android:id="@+id/registerGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Género" />
+            android:prompt="@string/prompt_gender" />
 
+        <!-- Spinner para edad -->
         <Spinner
             android:id="@+id/registerAge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Edad" />
+            android:prompt="@string/prompt_age" />
 
+        <!-- Spinner para altura -->
         <Spinner
             android:id="@+id/registerHeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Altura (cm)" />
+            android:prompt="@string/prompt_height" />
 
+        <!-- Spinner para nivel de actividad -->
         <Spinner
             android:id="@+id/registerActivityLevel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nivel de actividad" />
+            android:prompt="@string/prompt_activity_level" />
 
+        <!-- Spinner para meta -->
         <Spinner
             android:id="@+id/registerGoal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Meta" />
+            android:prompt="@string/prompt_goal" />
 
+        <!-- CheckBox para rol de administrador -->
         <CheckBox
             android:id="@+id/registerIsAdminCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="¿Es administrador?" />
 
+
+
+        <!-- Botón para obtener ubicación -->
+        <Button
+            android:id="@+id/getLocationButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Obtener Ubicación" />
+
+        <!-- Vista para mostrar ubicación -->
+        <TextView
+            android:id="@+id/locationTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ubicación: No disponible"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp" />
+
+        <!-- Botón para registrar usuario -->
         <Button
             android:id="@+id/registerButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Registrar" />
+            android:text="Registrar"
+            android:layout_marginTop="16dp" />
+
     </LinearLayout>
 </ScrollView>

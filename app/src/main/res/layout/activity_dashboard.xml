@@ -128,16 +128,50 @@
                             android:text="Detalles del desayuno"
                             android:textSize="16sp" />
 
-                        <Button
-                            android:id="@+id/addBreakfastButton"
-                            android:layout_width="wrap_content"
+                        <!-- Botones para añadir, modificar y eliminar desayuno -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="+"
-                            android:layout_gravity="end"
-                            android:backgroundTint="@color/colorPrimary"
-                            android:textColor="@android:color/white" />
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/addBreakfastButton"
+                                android:layout_width="0dp"
+                                android:layout_height="32dp"
+                                android:layout_weight="1"
+                                android:text="Añadir"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:textSize="12sp"
+                                android:padding="4dp"
+                                android:textColor="@android:color/white" />
+
+                            <Button
+                                android:id="@+id/modifyBreakfastButton"
+                                android:layout_width="0dp"
+                                android:layout_height="32dp"
+                                android:layout_weight="1"
+                                android:text="Modificar"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:textSize="12sp"
+                                android:padding="4dp"
+                                android:textColor="@android:color/white" />
+
+                            <Button
+                                android:id="@+id/deleteBreakfastButton"
+                                android:layout_width="0dp"
+                                android:layout_height="32dp"
+                                android:layout_weight="1"
+                                android:text="Eliminar"
+                                android:backgroundTint="@color/colorAccent"
+                                android:textSize="12sp"
+                                android:padding="4dp"
+                                android:textColor="@android:color/white" />
+
+                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
+                <!-- Repetir estructura para Almuerzo, Cena, Snacks -->
 
                 <!-- Contenedor para el almuerzo -->
                 <androidx.cardview.widget.CardView
@@ -168,14 +202,46 @@
                             android:text="Detalles del almuerzo"
                             android:textSize="16sp" />
 
-                        <Button
-                            android:id="@+id/addLunchButton"
-                            android:layout_width="wrap_content"
+                        <!-- Botones para añadir, modificar y eliminar almuerzo -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="+"
-                            android:layout_gravity="end"
-                            android:backgroundTint="@color/colorPrimary"
-                            android:textColor="@android:color/white" />
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/addLunchButton"
+                                android:layout_width="0dp"
+                                android:layout_height="32dp"
+                                android:layout_weight="1"
+                                android:text="Añadir"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:textSize="12sp"
+                                android:padding="4dp"
+                                android:textColor="@android:color/white" />
+
+                            <Button
+                                android:id="@+id/modifyLunchButton"
+                                android:layout_width="0dp"
+                                android:layout_height="32dp"
+                                android:layout_weight="1"
+                                android:text="Modificar"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:textSize="12sp"
+                                android:padding="4dp"
+                                android:textColor="@android:color/white" />
+
+                            <Button
+                                android:id="@+id/deleteLunchButton"
+                                android:layout_width="0dp"
+                                android:layout_height="32dp"
+                                android:layout_weight="1"
+                                android:text="Eliminar"
+                                android:backgroundTint="@color/colorAccent"
+                                android:textSize="12sp"
+                                android:padding="4dp"
+                                android:textColor="@android:color/white" />
+
+                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -208,14 +274,46 @@
                             android:text="Detalles de la cena"
                             android:textSize="16sp" />
 
-                        <Button
-                            android:id="@+id/addDinnerButton"
-                            android:layout_width="wrap_content"
+                        <!-- Botones para añadir, modificar y eliminar cena -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="+"
-                            android:layout_gravity="end"
-                            android:backgroundTint="@color/colorPrimary"
-                            android:textColor="@android:color/white" />
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/addDinnerButton"
+                                android:layout_width="0dp"
+                                android:layout_height="32dp"
+                                android:layout_weight="1"
+                                android:text="Añadir"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:textSize="12sp"
+                                android:padding="4dp"
+                                android:textColor="@android:color/white" />
+
+                            <Button
+                                android:id="@+id/modifyDinnerButton"
+                                android:layout_width="0dp"
+                                android:layout_height="32dp"
+                                android:layout_weight="1"
+                                android:text="Modificar"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:textSize="12sp"
+                                android:padding="4dp"
+                                android:textColor="@android:color/white" />
+
+                            <Button
+                                android:id="@+id/deleteDinnerButton"
+                                android:layout_width="0dp"
+                                android:layout_height="32dp"
+                                android:layout_weight="1"
+                                android:text="Eliminar"
+                                android:backgroundTint="@color/colorAccent"
+                                android:textSize="12sp"
+                                android:padding="4dp"
+                                android:textColor="@android:color/white" />
+
+                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -248,14 +346,46 @@
                             android:text="Detalles de los snacks"
                             android:textSize="16sp" />
 
-                        <Button
-                            android:id="@+id/addSnacksButton"
-                            android:layout_width="wrap_content"
+                        <!-- Botones para añadir, modificar y eliminar snacks -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="+"
-                            android:layout_gravity="end"
-                            android:backgroundTint="@color/colorPrimary"
-                            android:textColor="@android:color/white" />
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/addSnacksButton"
+                                android:layout_width="0dp"
+                                android:layout_height="32dp"
+                                android:layout_weight="1"
+                                android:text="Añadir"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:textSize="12sp"
+                                android:padding="4dp"
+                                android:textColor="@android:color/white" />
+
+                            <Button
+                                android:id="@+id/modifySnacksButton"
+                                android:layout_width="0dp"
+                                android:layout_height="32dp"
+                                android:layout_weight="1"
+                                android:text="Modificar"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:textSize="12sp"
+                                android:padding="4dp"
+                                android:textColor="@android:color/white" />
+
+                            <Button
+                                android:id="@+id/deleteSnacksButton"
+                                android:layout_width="0dp"
+                                android:layout_height="32dp"
+                                android:layout_weight="1"
+                                android:text="Eliminar"
+                                android:backgroundTint="@color/colorAccent"
+                                android:textSize="12sp"
+                                android:padding="4dp"
+                                android:textColor="@android:color/white" />
+
+                        </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -268,17 +398,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:menu="@menu/bottom_navigation_menu" />
-
     </LinearLayout>
 
+    <!-- Menú lateral -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/activity_main_drawer" />
-
-
 </androidx.drawerlayout.widget.DrawerLayout>
-
-

@@ -1,0 +1,57 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/weightTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gestión del Peso"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:textStyle="bold" />
+
+    <!-- Entrada de peso -->
+    <EditText
+        android:id="@+id/weightInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingresa tu peso (kg)"
+        android:inputType="numberDecimal"
+        android:layout_marginTop="16dp" />
+
+    <!-- Selector de fecha -->
+    <Button
+        android:id="@+id/selectDateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleccionar Fecha"
+        android:layout_marginTop="8dp" />
+
+    <!-- Fecha seleccionada -->
+    <TextView
+        android:id="@+id/selectedDateText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fecha seleccionada: "
+        android:layout_marginTop="8dp" />
+
+    <!-- Botón para guardar -->
+    <Button
+        android:id="@+id/saveWeightButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar Peso"
+        android:layout_marginTop="16dp" />
+
+    <!-- Lista de registros -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/weightRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
