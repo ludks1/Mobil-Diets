@@ -89,15 +89,67 @@ public class DashboardActivity extends AppCompatActivity {
         lunchDetails = findViewById(R.id.lunchDetails);
         dinnerDetails = findViewById(R.id.dinnerDetails);
         snacksDetails = findViewById(R.id.snacksDetails);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.navigation_home) {
+                // Navegar a la actividad "Home"
+                startActivity(new Intent(this, DashboardActivity.class));
+                return true;
+            } else if (item.getItemId() == R.id.navigation_dashboard) {
+                // Navegar a la actividad "Dashboard"
+                startActivity(new Intent(this, WeightActivity.class));
+                return true;
+            } else if (item.getItemId() == R.id.navigation_video) {
+                // Navegar a la actividad "Video"
+                startActivity(new Intent(this, VideoActivity.class));
+                return true;
+            } else {
+                return false;
+            }
+        });
+        // Botones de Desayuno
+        findViewById(R.id.addBreakfastButton).setOnClickListener(v -> fetchAndAddRecipe("Desayuno"));
+        findViewById(R.id.deleteBreakfastButton).setOnClickListener(v -> deleteMeal("Desayuno"));
+        findViewById(R.id.modifyBreakfastButton).setOnClickListener(v -> modifyMeal("Desayuno"));
 
-        findViewById(R.id.addBreakfastButton).setOnClickListener(v -> {
-            Log.d(TAG, "Button clicked: Add breakfast.");
-            fetchAndAddRecipe("Desayuno");
-        });
-        findViewById(R.id.deleteBreakfastButton).setOnClickListener(v -> {
-            Log.d(TAG, "Button clicked: Delete breakfast.");
-            deleteMeal("Desayuno");
-        });
+        // Botones de Almuerzo
+        findViewById(R.id.addLunchButton).setOnClickListener(v -> fetchAndAddRecipe("Almuerzo"));
+        findViewById(R.id.deleteLunchButton).setOnClickListener(v -> deleteMeal("Almuerzo"));
+        findViewById(R.id.modifyLunchButton).setOnClickListener(v -> modifyMeal("Almuerzo"));
+
+        // Botones de Cena
+        findViewById(R.id.addDinnerButton).setOnClickListener(v -> fetchAndAddRecipe("Cena"));
+        findViewById(R.id.deleteDinnerButton).setOnClickListener(v -> deleteMeal("Cena"));
+        findViewById(R.id.modifyDinnerButton).setOnClickListener(v -> modifyMeal("Cena"));
+
+        // Botones de Snacks
+        findViewById(R.id.addSnacksButton).setOnClickListener(v -> fetchAndAddRecipe("Snacks"));
+        findViewById(R.id.deleteSnacksButton).setOnClickListener(v -> deleteMeal("Snacks"));
+        findViewById(R.id.modifySnacksButton).setOnClickListener(v -> modifyMeal("Snacks"));
+    }
+
+
+    private void modifyMeal(String mealType) {
+        String newFood = foodTextField.getText().toString().trim();
+        Log.d(TAG, "Modifying meal for " + mealType + ", New food input: " + newFood);
+
+        if (newFood.isEmpty()) {
+            Toast.makeText(this, "Por favor, ingresa un alimento para modificar.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Eliminar los nutrientes actuales si existen
+        JsonArray currentNutrients = mealNutritionMap.get(mealType);
+        if (currentNutrients != null) {
+            Log.d(TAG, "Removing current nutrients for " + mealType);
+            adjustUserNutrition(currentNutrients, false);
+            mealNutritionMap.remove(mealType);
+        } else {
+            Log.d(TAG, "No current nutrients found for " + mealType + ", Proceeding to add new food.");
+        }
+
+        // Agregar el nuevo alimento
+        fetchAndAddRecipe(mealType);
     }
 
     private void fetchAndAddRecipe(String mealType) {
