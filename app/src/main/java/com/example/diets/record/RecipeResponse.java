@@ -60,4 +60,5 @@ public record RecipeResponse(int offset,
             carbohydrates = carbohydrates == 0 ? 0.0 : carbohydrates;
         }
     }
+
 }

@@ -6,17 +6,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.diets.R;
-import com.example.diets.model.WeightRecord;
+import com.example.diets.model.WeightRecord;  // Corregir importación de WeightRecord
 import com.example.diets.adapters.WeightAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,7 +31,7 @@ public class WeightActivity extends AppCompatActivity {
     private RecyclerView weightRecyclerView;
 
     private String selectedDate;
-    private List<WeightRecord> weightRecords;
+    private List<WeightRecord> weightRecords;  // Corregir tipo de lista a WeightRecord
     private WeightAdapter weightAdapter;
 
     private DatabaseReference databaseReference;
@@ -92,14 +91,16 @@ public class WeightActivity extends AppCompatActivity {
         }
 
         double weight = Double.parseDouble(weightStr);
-        WeightRecord record = new WeightRecord(weight, selectedDate);
+        WeightRecord record = new WeightRecord(weight, selectedDate);  // Usar WeightRecord directamente
 
+        // Crear un nuevo registro con un ID único
         String recordId = databaseReference.push().getKey();
         if (recordId != null) {
+            // Guardar el registro en Firebase
             databaseReference.child(recordId).setValue(record).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    weightRecords.add(record);
-                    weightAdapter.notifyDataSetChanged();
+                    weightRecords.add(record); // Añadir el registro a la lista
+                    weightAdapter.notifyDataSetChanged(); // Notificar al adaptador
                     Toast.makeText(this, "Registro guardado.", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "Error al guardar el registro.", Toast.LENGTH_SHORT).show();
@@ -109,15 +110,16 @@ public class WeightActivity extends AppCompatActivity {
     }
 
     private void loadWeightRecords() {
+        // Cargar los registros de Firebase
         databaseReference.get().addOnCompleteListener(task -> {
             if (task.isSuccessful() && task.getResult() != null) {
                 for (DataSnapshot snapshot : task.getResult().getChildren()) {
-                    WeightRecord record = snapshot.getValue(WeightRecord.class);
+                    WeightRecord record = snapshot.getValue(WeightRecord.class);  // Usar WeightRecord directamente
                     if (record != null) {
-                        weightRecords.add(record);
+                        weightRecords.add(record); // Añadir cada registro a la lista
                     }
                 }
-                weightAdapter.notifyDataSetChanged();
+                weightAdapter.notifyDataSetChanged(); // Notificar al adaptador
             }
         });
     }

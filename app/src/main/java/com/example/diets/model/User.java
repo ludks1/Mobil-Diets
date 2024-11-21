@@ -27,7 +27,7 @@ public class User {
     private double latitude; // Coordenada de latitud
     private double longitude; // Coordenada de longitud
     private String profilePhotoUrl; // URL de la foto de perfil
-
+    private String profilePhoto;
     // Constructor sin argumentos requerido por Firebase
     public User() {
         this.firstTime = true;
@@ -190,27 +190,43 @@ public class User {
     }
 
     public void addCaloriesToday(double calories) {
+        if (calories < 0) {
+            Log.w(TAG, "Intento de añadir calorías negativas ignorado.");
+            return;
+        }
+        Log.d(TAG, "addCaloriesToday | Valor previo: " + this.caloriesToday + ", Añadiendo: " + calories);
         this.caloriesToday += calories;
-        Log.d(TAG, "Calories updated: " + this.caloriesToday);
-        if (this.caloriesToday < 0) this.caloriesToday = 0; // Evita valores negativos
+        Log.d(TAG, "addCaloriesToday | Valor actualizado: " + this.caloriesToday);
     }
 
     public void addProteinToday(double protein) {
+        if (protein < 0) {
+            Log.w(TAG, "Intento de añadir proteínas negativas ignorado.");
+            return;
+        }
+        Log.d(TAG, "addProteinToday | Valor previo: " + this.proteinToday + ", Añadiendo: " + protein);
         this.proteinToday += protein;
-        Log.d(TAG, "Protein updated: " + this.proteinToday);
-        if (this.proteinToday < 0) this.proteinToday = 0;
+        Log.d(TAG, "addProteinToday | Valor actualizado: " + this.proteinToday);
     }
 
     public void addFatToday(double fat) {
+        if (fat < 0) {
+            Log.w(TAG, "Intento de añadir grasas negativas ignorado.");
+            return;
+        }
+        Log.d(TAG, "addFatToday | Valor previo: " + this.fatToday + ", Añadiendo: " + fat);
         this.fatToday += fat;
-        Log.d(TAG, "Fat updated: " + this.fatToday);
-        if (this.fatToday < 0) this.fatToday = 0; // Evitar valores negativos
+        Log.d(TAG, "addFatToday | Valor actualizado: " + this.fatToday);
     }
 
     public void addCarbToday(double carbs) {
+        if (carbs < 0) {
+            Log.w(TAG, "Intento de añadir carbohidratos negativos ignorado.");
+            return;
+        }
+        Log.d(TAG, "addCarbToday | Valor previo: " + this.carbToday + ", Añadiendo: " + carbs);
         this.carbToday += carbs;
-        Log.d(TAG, "Carbs updated: " + this.carbToday);
-        if (this.carbToday < 0) this.carbToday = 0; // Evitar valores negativos
+        Log.d(TAG, "addCarbToday | Valor actualizado: " + this.carbToday);
     }
 
     public double getLatitude() {
@@ -232,6 +248,13 @@ public class User {
     public String getProfilePhotoUrl() {
         return profilePhotoUrl != null ? profilePhotoUrl : "default";
     }
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
 
     public void setProfilePhotoUrl(String profilePhotoUrl) {
         this.profilePhotoUrl = profilePhotoUrl;
@@ -239,23 +262,47 @@ public class User {
 
     // Métodos para restar valores
     public void subtractCaloriesToday(double calories) {
+        if (calories < 0) {
+            Log.w(TAG, "Intento de restar calorías negativas ignorado.");
+            return;
+        }
+        Log.d(TAG, "subtractCaloriesToday | Valor previo: " + this.caloriesToday + ", Restando: " + calories);
         this.caloriesToday = Math.max(0, this.caloriesToday - calories);
+        Log.d(TAG, "subtractCaloriesToday | Valor actualizado: " + this.caloriesToday);
     }
 
     public void subtractProteinToday(double protein) {
+        if (protein < 0) {
+            Log.w(TAG, "Intento de restar proteínas negativas ignorado.");
+            return;
+        }
+        Log.d(TAG, "subtractProteinToday | Valor previo: " + this.proteinToday + ", Restando: " + protein);
         this.proteinToday = Math.max(0, this.proteinToday - protein);
+        Log.d(TAG, "subtractProteinToday | Valor actualizado: " + this.proteinToday);
     }
 
     public void subtractFatToday(double fat) {
+        if (fat < 0) {
+            Log.w(TAG, "Intento de restar grasas negativas ignorado.");
+            return;
+        }
+        Log.d(TAG, "subtractFatToday | Valor previo: " + this.fatToday + ", Restando: " + fat);
         this.fatToday = Math.max(0, this.fatToday - fat);
+        Log.d(TAG, "subtractFatToday | Valor actualizado: " + this.fatToday);
     }
 
     public void subtractCarbToday(double carbs) {
+        if (carbs < 0) {
+            Log.w(TAG, "Intento de restar carbohidratos negativos ignorado.");
+            return;
+        }
+        Log.d(TAG, "subtractCarbToday | Valor previo: " + this.carbToday + ", Restando: " + carbs);
         this.carbToday = Math.max(0, this.carbToday - carbs);
+        Log.d(TAG, "subtractCarbToday | Valor actualizado: " + this.carbToday);
     }
 
-    // Método para reiniciar valores diarios
     public void resetDailyValues() {
+        Log.d(TAG, "resetDailyValues | Reiniciando valores diarios a cero.");
         this.caloriesToday = 0.0;
         this.proteinToday = 0.0;
         this.fatToday = 0.0;
@@ -302,4 +349,5 @@ public class User {
         double carbGrams = (calories - (proteinGrams * 4) - (fatGrams * 9)) / 4;
         return new double[]{proteinGrams, fatGrams, carbGrams};
     }
+
 }

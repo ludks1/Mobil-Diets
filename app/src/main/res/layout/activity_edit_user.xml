@@ -64,12 +64,10 @@
             android:layout_marginBottom="4dp"
             android:layout_marginTop="8dp" />
 
-        <EditText
-            android:id="@+id/editUserAge"
+        <Spinner
+            android:id="@+id/editUserAgeSpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Edad"
-            android:inputType="number" />
+            android:layout_height="wrap_content" />
 
         <!-- Peso -->
         <TextView
@@ -80,12 +78,10 @@
             android:layout_marginBottom="4dp"
             android:layout_marginTop="8dp" />
 
-        <EditText
-            android:id="@+id/editUserWeight"
+        <Spinner
+            android:id="@+id/editUserWeightSpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Peso (kg)"
-            android:inputType="numberDecimal" />
+            android:layout_height="wrap_content" />
 
         <!-- Altura -->
         <TextView
@@ -96,12 +92,10 @@
             android:layout_marginBottom="4dp"
             android:layout_marginTop="8dp" />
 
-        <EditText
-            android:id="@+id/editUserHeight"
+        <Spinner
+            android:id="@+id/editUserHeightSpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Altura (cm)"
-            android:inputType="numberDecimal" />
+            android:layout_height="wrap_content" />
 
         <!-- Género -->
         <TextView
@@ -145,6 +139,57 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <!-- Administrador -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Es administrador?"
+            android:layout_marginTop="8dp" />
+
+        <CheckBox
+            android:id="@+id/editUserAdminCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- Latitud -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Latitud" />
+
+        <EditText
+            android:id="@+id/editUserLatitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
+
+        <!-- Longitud -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Longitud" />
+
+        <EditText
+            android:id="@+id/editUserLongitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
+
+        <!-- Foto de Perfil -->
+        <ImageView
+            android:id="@+id/editUserProfileImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/placeholder" />
+
+        <!-- Botón para tomar nueva foto -->
+        <Button
+            android:id="@+id/editUserPhotoButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Actualizar Foto de Perfil" />
+
         <!-- Botón para guardar cambios -->
         <Button
             android:id="@+id/saveUserButton"
@@ -154,8 +199,5 @@
             android:layout_marginTop="16dp"
             android:backgroundTint="?attr/colorPrimary"
             android:textColor="@android:color/white" />
-
-
-
     </LinearLayout>
 </ScrollView>

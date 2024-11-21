@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -40,12 +39,13 @@
             android:layout_marginBottom="16dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/weightEditText"
+            <Spinner
+                android:id="@+id/weightSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Peso (kg)"
-                android:inputType="numberDecimal"/>
+                android:background="@drawable/spinner_background"
+                android:padding="16dp"
+                android:textColor="#3b4144"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -54,12 +54,13 @@
             android:layout_marginBottom="16dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/heightEditText"
+            <Spinner
+                android:id="@+id/heightSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Estatura (cm)"
-                android:inputType="numberDecimal"/>
+                android:background="@drawable/spinner_background"
+                android:padding="16dp"
+                android:textColor="#3b4144"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -68,13 +69,15 @@
             android:layout_marginBottom="16dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ageEditText"
+            <Spinner
+                android:id="@+id/ageSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Edad"
-                android:inputType="number"/>
+                android:background="@drawable/spinner_background"
+                android:padding="16dp"
+                android:textColor="#3b4144"/>
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

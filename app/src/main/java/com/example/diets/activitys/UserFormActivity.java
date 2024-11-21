@@ -1,3 +1,4 @@
+
 package com.example.diets.activitys;
 
 import android.content.Intent;
@@ -28,6 +29,9 @@ public class UserFormActivity extends AppCompatActivity {
     private Spinner genderSpinner;
     private Spinner activityLevelSpinner;
     private Spinner goalSpinner;
+    private Spinner weightSpinner;
+    private Spinner heightSpinner;
+    private Spinner ageSpinner;
     private Button submitButton;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -37,12 +41,13 @@ public class UserFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_form);
 
-        weightEditText = findViewById(R.id.weightEditText);
-        heightEditText = findViewById(R.id.heightEditText);
-        ageEditText = findViewById(R.id.ageEditText);
+
         genderSpinner = findViewById(R.id.genderSpinner);
         activityLevelSpinner = findViewById(R.id.activityLevelSpinner);
         goalSpinner = findViewById(R.id.goalSpinner);
+        weightSpinner = findViewById(R.id.weightSpinner);
+        heightSpinner = findViewById(R.id.heightSpinner);
+        ageSpinner = findViewById(R.id.ageSpinner);
         submitButton = findViewById(R.id.submitButton);
 
         mAuth = FirebaseAuth.getInstance();
@@ -66,6 +71,24 @@ public class UserFormActivity extends AppCompatActivity {
         goalAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         goalSpinner.setAdapter(goalAdapter);
 
+        // Configura el Spinner de peso
+        ArrayAdapter<CharSequence> weightAdapter = ArrayAdapter.createFromResource(this,
+                R.array.weight_options, android.R.layout.simple_spinner_item);
+        weightAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        weightSpinner.setAdapter(weightAdapter);
+
+        // Configura el Spinner de altura
+        ArrayAdapter<CharSequence> heightAdapter = ArrayAdapter.createFromResource(this,
+                R.array.height_options, android.R.layout.simple_spinner_item);
+        heightAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        heightSpinner.setAdapter(heightAdapter);
+
+        // Configura el Spinner de edad
+        ArrayAdapter<CharSequence> ageAdapter = ArrayAdapter.createFromResource(this,
+                R.array.age_options, android.R.layout.simple_spinner_item);
+        ageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ageSpinner.setAdapter(ageAdapter);
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,13 +101,16 @@ public class UserFormActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
-            double weight = Double.parseDouble(weightEditText.getText().toString());
-            double height = Double.parseDouble(heightEditText.getText().toString());
-            int age = Integer.parseInt(ageEditText.getText().toString());
+
+            // Obtener los valores de los spinners
+            double weight = Double.parseDouble(weightSpinner.getSelectedItem().toString());
+            double height = Double.parseDouble(heightSpinner.getSelectedItem().toString());
+            int age = Integer.parseInt(ageSpinner.getSelectedItem().toString());
             String gender = genderSpinner.getSelectedItem().toString();
             String activityLevel = activityLevelSpinner.getSelectedItem().toString();
             String goal = goalSpinner.getSelectedItem().toString();
 
+            // Actualiza la base de datos
             mDatabase.child("users").child(userId).child("weight").setValue(weight);
             mDatabase.child("users").child(userId).child("height").setValue(height);
             mDatabase.child("users").child(userId).child("age").setValue(age);
@@ -106,3 +132,4 @@ public class UserFormActivity extends AppCompatActivity {
         }
     }
 }
+

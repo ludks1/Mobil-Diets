@@ -2,9 +2,13 @@ package com.example.diets.activitys;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +29,8 @@ public class UserDetailsActivity extends AppCompatActivity {
     private TextView userDetailsName, userDetailsEmail, userDetailsAge, userDetailsWeight, userDetailsHeight,
             userDetailsGender, userDetailsActivityLevel, userDetailsGoal, userDetailsCaloriesToday,
             userDetailsProteinToday, userDetailsFatToday, userDetailsCarbToday, userDetailsCaloriesNeeded,
-            userDetailsIsAdmin;
+            userDetailsIsAdmin, userDetailsLocation;
+    private ImageView userDetailsProfileImage;
     private Button editUserButton, deleteUserButton;
     private DatabaseReference userRef;
     private String userId;
@@ -35,7 +40,7 @@ public class UserDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
 
-        // Inicializa los TextViews y botones
+        // Inicializa los TextViews, ImageView y botones
         initializeUI();
 
         // Obtén el Intent y el userId
@@ -75,6 +80,8 @@ public class UserDetailsActivity extends AppCompatActivity {
         userDetailsCarbToday = findViewById(R.id.userDetailsCarbToday);
         userDetailsCaloriesNeeded = findViewById(R.id.userDetailsCaloriesNeeded);
         userDetailsIsAdmin = findViewById(R.id.userDetailsIsAdmin);
+        userDetailsLocation = findViewById(R.id.userDetailsLocation);
+        userDetailsProfileImage = findViewById(R.id.userDetailsProfileImage);
         editUserButton = findViewById(R.id.editUserButton);
         deleteUserButton = findViewById(R.id.deleteUserButton);
     }
@@ -103,6 +110,12 @@ public class UserDetailsActivity extends AppCompatActivity {
                         userDetailsCarbToday.setText("Carbohidratos consumidos hoy: " + user.getCarbToday() + " g");
                         userDetailsCaloriesNeeded.setText("Calorías necesarias: " + String.format("%.2f", caloriesNeeded) + " kcal");
                         userDetailsIsAdmin.setText("Administrador: " + (user.isAdmin() ? "Sí" : "No"));
+
+                        // Muestra la ubicación
+                        userDetailsLocation.setText(String.format("Ubicación: Lat %.6f, Lng %.6f", user.getLatitude(), user.getLongitude()));
+
+                        // Decodifica y muestra la imagen de perfil
+                        loadProfileImage(user.getProfilePhoto());
                     } else {
                         Toast.makeText(UserDetailsActivity.this, "No se pudo obtener la información del usuario.", Toast.LENGTH_SHORT).show();
                         finish();
@@ -118,6 +131,22 @@ public class UserDetailsActivity extends AppCompatActivity {
                 Toast.makeText(UserDetailsActivity.this, "Error al cargar los datos: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void loadProfileImage(String profilePhotoBase64) {
+        if (profilePhotoBase64 == null || profilePhotoBase64.isEmpty()) {
+            userDetailsProfileImage.setImageResource(R.drawable.placeholder);
+            return;
+        }
+
+        try {
+            byte[] decodedBytes = Base64.decode(profilePhotoBase64, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+            userDetailsProfileImage.setImageBitmap(bitmap);
+        } catch (Exception e) {
+            Log.e("UserDetailsActivity", "Error al decodificar la imagen: " + e.getMessage());
+            userDetailsProfileImage.setImageResource(R.drawable.placeholder);
+        }
     }
 
     private void setupButtons() {

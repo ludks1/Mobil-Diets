@@ -48,4 +48,6 @@ public class WeightAdapter extends RecyclerView.Adapter<WeightAdapter.WeightView
             dateText = itemView.findViewById(R.id.dateText);
         }
     }
+
+
 }

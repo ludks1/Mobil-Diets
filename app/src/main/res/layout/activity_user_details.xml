@@ -5,90 +5,31 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Foto de perfil -->
+    <ImageView
+        android:id="@+id/userDetailsProfileImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/placeholder" />
+
     <!-- Información del usuario -->
-    <TextView
-        android:id="@+id/userDetailsName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nombre:" />
-
-    <TextView
-        android:id="@+id/userDetailsEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email:" />
-
-    <TextView
-        android:id="@+id/userDetailsAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edad:" />
-
-    <TextView
-        android:id="@+id/userDetailsWeight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Peso:" />
-
-    <TextView
-        android:id="@+id/userDetailsHeight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Altura:" />
-
-    <TextView
-        android:id="@+id/userDetailsGender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Género:" />
-
-    <TextView
-        android:id="@+id/userDetailsActivityLevel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nivel de actividad:" />
-
-    <TextView
-        android:id="@+id/userDetailsGoal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Meta:" />
-
-    <TextView
-        android:id="@+id/userDetailsCaloriesToday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Calorías consumidas hoy:" />
-
-    <TextView
-        android:id="@+id/userDetailsProteinToday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Proteínas consumidas hoy:" />
-
-    <TextView
-        android:id="@+id/userDetailsFatToday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Grasas consumidas hoy:" />
-
-    <TextView
-        android:id="@+id/userDetailsCarbToday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Carbohidratos consumidos hoy:" />
-
-    <TextView
-        android:id="@+id/userDetailsCaloriesNeeded"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Calorías necesarias:" />
-
-    <TextView
-        android:id="@+id/userDetailsIsAdmin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Administrador:" />
+    <TextView android:id="@+id/userDetailsName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nombre:" />
+    <TextView android:id="@+id/userDetailsEmail" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Email:" />
+    <TextView android:id="@+id/userDetailsAge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Edad:" />
+    <TextView android:id="@+id/userDetailsWeight" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Peso:" />
+    <TextView android:id="@+id/userDetailsHeight" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Altura:" />
+    <TextView android:id="@+id/userDetailsGender" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Género:" />
+    <TextView android:id="@+id/userDetailsActivityLevel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nivel de actividad:" />
+    <TextView android:id="@+id/userDetailsGoal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Meta:" />
+    <TextView android:id="@+id/userDetailsCaloriesToday" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Calorías consumidas hoy:" />
+    <TextView android:id="@+id/userDetailsProteinToday" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Proteínas consumidas hoy:" />
+    <TextView android:id="@+id/userDetailsFatToday" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Grasas consumidas hoy:" />
+    <TextView android:id="@+id/userDetailsCarbToday" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Carbohidratos consumidos hoy:" />
+    <TextView android:id="@+id/userDetailsCaloriesNeeded" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Calorías necesarias:" />
+    <TextView android:id="@+id/userDetailsIsAdmin" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Administrador:" />
+    <TextView android:id="@+id/userDetailsLocation" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ubicación:" />
 
     <!-- Botones para modificar y eliminar usuario -->
     <LinearLayout

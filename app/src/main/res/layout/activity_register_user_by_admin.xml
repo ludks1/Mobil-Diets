@@ -45,36 +45,31 @@
         <Spinner
             android:id="@+id/registerGender"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:prompt="@string/prompt_gender" />
+            android:layout_height="wrap_content" />
 
         <!-- Spinner para edad -->
         <Spinner
             android:id="@+id/registerAge"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:prompt="@string/prompt_age" />
+            android:layout_height="wrap_content" />
 
         <!-- Spinner para altura -->
         <Spinner
             android:id="@+id/registerHeight"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:prompt="@string/prompt_height" />
+            android:layout_height="wrap_content" />
 
         <!-- Spinner para nivel de actividad -->
         <Spinner
             android:id="@+id/registerActivityLevel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:prompt="@string/prompt_activity_level" />
+            android:layout_height="wrap_content" />
 
         <!-- Spinner para meta -->
         <Spinner
             android:id="@+id/registerGoal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:prompt="@string/prompt_goal" />
+            android:layout_height="wrap_content" />
 
         <!-- CheckBox para rol de administrador -->
         <CheckBox
@@ -83,7 +78,21 @@
             android:layout_height="wrap_content"
             android:text="¿Es administrador?" />
 
+        <!-- Botón para tomar foto -->
+        <Button
+            android:id="@+id/takePhotoButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tomar Foto" />
 
+        <!-- Vista para mostrar la imagen tomada -->
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/placeholder" />
 
         <!-- Botón para obtener ubicación -->
         <Button
@@ -108,6 +117,5 @@
             android:layout_height="wrap_content"
             android:text="Registrar"
             android:layout_marginTop="16dp" />
-
     </LinearLayout>
 </ScrollView>

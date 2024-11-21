@@ -20,13 +20,6 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <!-- RecyclerView para los alimentos (si es necesario) -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/foodRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -39,16 +32,36 @@
                 android:orientation="vertical"
                 android:gravity="center">
 
-                <!-- Título del Dashboard -->
-                <TextView
-                    android:id="@+id/dashboardGreeting"
-                    android:layout_width="wrap_content"
+                <!-- Sección de bienvenida con foto de perfil -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hola, este es el Dashboard"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
 
-                <!-- Información Nutricional -->
+                    <!-- Texto de bienvenida -->
+                    <TextView
+                        android:id="@+id/dashboardGreeting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hola, este es el Dashboard"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="16dp" />
+
+                    <!-- Imagen de perfil -->
+                    <ImageView
+                        android:id="@+id/adminProfileImageView"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/placeholder"
+                    android:scaleType="centerCrop"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/circle_shape" />
+                </LinearLayout>
+
+
                 <TextView
                     android:id="@+id/proteinTextView"
                     android:layout_width="wrap_content"
@@ -70,7 +83,6 @@
                     android:text="Carbohidratos: 0g"
                     android:textSize="16sp" />
 
-                <!-- Calorías necesarias (según meta) -->
                 <TextView
                     android:id="@+id/caloriesNeededTextView"
                     android:layout_width="wrap_content"
@@ -79,7 +91,6 @@
                     android:textSize="18sp"
                     android:layout_marginTop="16dp" />
 
-                <!-- Calorías de hoy (consumidas hoy) -->
                 <TextView
                     android:id="@+id/caloriesTodayTextView"
                     android:layout_width="wrap_content"
@@ -88,7 +99,6 @@
                     android:textSize="18sp"
                     android:layout_marginTop="8dp" />
 
-                <!-- Campo para añadir alimentos -->
                 <EditText
                     android:id="@+id/foodTextField"
                     android:layout_width="299dp"
